@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
@@ -7,23 +7,6 @@ import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHea
 
 // project import
 import Dot from 'components/@extended/Dot';
-
-function createData(sn, org, start, end, status) {
-  return { sn, org, start, end, status };
-}
-
-const rows = [
-  createData(84564564, 'Camera Lens', 40, 2, 40570),
-  createData(98764564, 'Laptop', 300, 0, 180139),
-  createData(98756325, 'Mobile', 355, 1, 90989),
-  createData(98652366, 'Handset', 50, 1, 10239),
-  createData(13286564, 'Computer Accessories', 100, 1, 83348),
-  createData(86739658, 'TV', 99, 0, 410780),
-  createData(13256498, 'Keyboard', 125, 2, 70999),
-  createData(98753263, 'Mouse', 89, 2, 10570),
-  createData(98753275, 'Desktop', 185, 1, 98063),
-  createData(98753291, 'Chair', 100, 0, 14001)
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -51,7 +34,25 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-// ==============================|| ORDER TABLE - HEADER CELL ||============================== //
+function formatDate(dateTime){
+    let date = new Date(dateTime);
+
+    let day = date.getDate();
+    let month = date.getMonth()+1;
+    let year = date.getFullYear();
+
+    if (day < 10) {
+        day = '0' + day;
+    }
+    if (month < 10) {
+        month = `0${month}`;
+    }
+    
+    // return year + "-" + month + "-" + day;
+    return `${year}-${month}-${day}`;
+}
+
+// ==============================|| TABLE - HEADER CELL ||============================== //
 
 const headCells = [
   {
@@ -68,7 +69,7 @@ const headCells = [
   },
   {
     id: 'start',
-    align: 'right',
+    align: 'left',
     disablePadding: false,
     label: 'Start'
   },
@@ -80,15 +81,17 @@ const headCells = [
   },
   {
     id: 'status',
-    align: 'right',
+    align: 'left',
     disablePadding: false,
     label: 'Status'
   }
 ];
 
-// ==============================|| ORDER TABLE - HEADER ||============================== //
+// ==============================|| TABLE - HEADER ||============================== //
 
-function OrderTableHead({ order, orderBy }) {
+
+
+function ExerTableHead({ order, orderBy }) {
   return (
     <TableHead>
       <TableRow>
@@ -107,14 +110,14 @@ function OrderTableHead({ order, orderBy }) {
   );
 }
 
-OrderTableHead.propTypes = {
+ExerTableHead.propTypes = {
   order: PropTypes.string,
   orderBy: PropTypes.string
 };
 
-// ==============================|| ORDER TABLE - STATUS ||============================== //
+// ==============================|| TABLE - STATUS ||============================== //
 
-const OrderStatus = ({ status }) => {
+const ExerciseStatus = ({ status }) => {
   let color;
   let title;
 
@@ -125,12 +128,16 @@ const OrderStatus = ({ status }) => {
       break;
     case 1:
       color = 'success';
-      title = 'Approved';
+      title = 'Ongoing';
       break;
     case 2:
-      color = 'error';
-      title = 'Rejected';
+      color = 'info';
+      title = 'End';
       break;
+    case 3:
+        color = 'error';
+        title = 'Cancel';
+        break;
     default:
       color = 'primary';
       title = 'None';
@@ -144,18 +151,32 @@ const OrderStatus = ({ status }) => {
   );
 };
 
-OrderStatus.propTypes = {
+ExerciseStatus.propTypes = {
   status: PropTypes.number
 };
 
-// ==============================|| ORDER TABLE ||============================== //
+// ==============================|| TABLE ||============================== //
 
 export default function OrderTable() {
   const [order] = useState('asc');
-  const [orderBy] = useState('sn');
+  const [orderBy] = useState('status');
   const [selected] = useState([]);
 
   const isSelected = (sn) => selected.indexOf(sn) !== -1;
+
+  const [exerciseList, setExerciseList] = useState([]);
+  useEffect(() => {
+    fetch('/exercises')
+    .then((response) => {
+      let json = response.json();
+      console.log(json)
+      return json
+    })
+    .then((data) => {
+      setExerciseList(data);
+      console.log(data);
+    });
+  }, []);
 
   return (
     <Box>
@@ -180,9 +201,9 @@ export default function OrderTable() {
             }
           }}
         >
-          <OrderTableHead order={order} orderBy={orderBy} />
+          <ExerTableHead order={order} orderBy={orderBy} />
           <TableBody>
-            {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
+            {stableSort(exerciseList, getComparator(order, orderBy)).map((row, index) => {
               const isItemSelected = isSelected(row.sn);
               const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -197,15 +218,15 @@ export default function OrderTable() {
                   selected={isItemSelected}
                 >
                   <TableCell component="th" id={labelId} scope="row" align="left">
-                    <Link color="secondary" component={RouterLink} to="">
+                    <Link color="secondary" component={RouterLink} to="/color">
                       {row.sn}
                     </Link>
                   </TableCell>
                   <TableCell align="left">{row.org}</TableCell>
-                  <TableCell>{row.start}</TableCell>
-                  <TableCell>{row.end}</TableCell>
+                  <TableCell>{formatDate(row.start)}</TableCell>
+                  <TableCell>{formatDate(row.end)}</TableCell>
                   <TableCell align="left">
-                    <OrderStatus status={row.status} />
+                    <ExerciseStatus status={row.status} />
                   </TableCell>
                   {/* <TableCell align="right">
                     <NumberFormat value={row.status} displayType="text" thousandSeparator prefix="$" />
