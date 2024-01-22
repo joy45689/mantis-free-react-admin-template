@@ -6,6 +6,7 @@ import MainLayout from 'layout/MainLayout';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
+const SecurityExercise = Loadable(lazy(() => import('pages/components-overview/SecurityExercise')));
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
@@ -15,6 +16,7 @@ const Typography = Loadable(lazy(() => import('pages/components-overview/Typogra
 const Color = Loadable(lazy(() => import('pages/components-overview/Color')));
 const Shadow = Loadable(lazy(() => import('pages/components-overview/Shadow')));
 const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons')));
+
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -29,6 +31,10 @@ const MainRoutes = {
     {
       path: 'color',
       element: <Color />
+    },
+    {
+      path: 'security-exercise',
+      element: <SecurityExercise />
     },
     {
       path: 'dashboard',

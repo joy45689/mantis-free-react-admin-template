@@ -1,9 +1,10 @@
 // assets
-import { DashboardOutlined } from '@ant-design/icons';
+import { DashboardOutlined, SecurityScanOutlined } from '@ant-design/icons';
 
 // icons
 const icons = {
-  DashboardOutlined
+  DashboardOutlined,
+  SecurityScanOutlined
 };
 
 // ==============================|| MENU ITEMS - DASHBOARD ||============================== //
@@ -19,6 +20,14 @@ const dashboard = {
       type: 'item',
       url: '/dashboard/default',
       icon: icons.DashboardOutlined,
+      breadcrumbs: false
+    },
+    {
+      id: 'security-exercise',
+      title: 'Security Exercise',
+      type: 'item',
+      url: '/security-exercise',
+      icon: icons.SecurityScanOutlined,
       breadcrumbs: false
     }
   ]
