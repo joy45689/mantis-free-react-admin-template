@@ -19,7 +19,8 @@ import {
 } from '@mui/material';
 
 // project import
-import ExerciseTable from 'pages/dashboard/ExerciseTable';
+import ExerciseTable from 'pages/security-exercise/ExerciseTable';
+import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
 
 // assets
@@ -84,7 +85,7 @@ const SecurityExercise = () => {
         <Button onClick={addExercise} variant="contained" color="success" size="small">
           Create a new Activity
         </Button>
-        {showAddExerForm && <ExerciseTable />}
+        {showAddExerForm && <AddExerForm />}
         <MainCard sx={{ mt: 2 }} content={false}>
           <ExerciseTable />
         </MainCard>

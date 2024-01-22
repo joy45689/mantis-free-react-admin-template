@@ -6,7 +6,7 @@ import MainLayout from 'layout/MainLayout';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
-const SecurityExercise = Loadable(lazy(() => import('pages/components-overview/SecurityExercise')));
+const SecurityExercise = Loadable(lazy(() => import('pages/security-exercise')));
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/SamplePage')));
