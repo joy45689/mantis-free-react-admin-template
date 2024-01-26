@@ -2,23 +2,10 @@ import { useState, useEffect } from 'react';
 
 // material-ui
 import {
-  // Avatar,
-  // AvatarGroup,
-  // Box,
   Button,
   Grid,
-  // List,
-  // ListItemAvatar,
-  // ListItemButton,
-  // ListItemSecondaryAction,
-  // ListItemText,
-  // MenuItem,
-  // Stack,
-  // TextField,
   Typography
 } from '@mui/material';
-// import { styled } from '@mui/material/styles';
-// import Paper from '@mui/material/Paper';
 
 // project import
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
@@ -28,53 +15,8 @@ import { loadExercises } from 'pages/security-exercise/route';
 
 // assets
 import { PlusOutlined } from '@ant-design/icons';
-// import avatar1 from 'assets/images/users/avatar-1.png';
-// import avatar2 from 'assets/images/users/avatar-2.png';
-// import avatar3 from 'assets/images/users/avatar-3.png';
-// import avatar4 from 'assets/images/users/avatar-4.png';
 
-// // avatar style
-// const avatarSX = {
-//   width: 36,
-//   height: 36,
-//   fontSize: '1rem'
-// };
-
-// // action style
-// const actionSX = {
-//   mt: 0.75,
-//   ml: 1,
-//   top: 'auto',
-//   right: 'auto',
-//   alignSelf: 'flex-start',
-//   transform: 'none'
-// };
-
-// // sales report status
-// const status = [
-//   {
-//     value: 'today',
-//     label: 'Today'
-//   },
-//   {
-//     value: 'month',
-//     label: 'This Month'
-//   },
-//   {
-//     value: 'year',
-//     label: 'This Year'
-//   }
-// ];
-
-// ==============================|| DASHBOARD - DEFAULT ||============================== //
-
-// const Item = styled(Paper)(({ theme }) => ({
-//   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//   ...theme.typography.body2,
-//   padding: theme.spacing(1),
-//   textAlign: 'center',
-//   color: theme.palette.text.secondary,
-// }));
+// ==============================|| Security Exercise ||============================== //
 
 const SecurityExercise = () => {
   const [showAddExerForm, setShowAddExerForm] = useState(false);

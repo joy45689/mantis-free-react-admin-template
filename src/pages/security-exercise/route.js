@@ -1,12 +1,7 @@
 // third party
 import Axios from "axios";
 
-export function loadExercises(setExerciseList) {
-    Axios.get('/exercises')
-    .then((response) => {
-        setExerciseList(response.data);
-    });
-}
+
 
 export default function addExercise (values, setDispaly, enqueueSnackbar) {
     Axios.post("/exercises/create", values)
@@ -17,7 +12,16 @@ export default function addExercise (values, setDispaly, enqueueSnackbar) {
     })
     .catch((err) => {
       setDispaly(true);
-      console.log("addExercise failed!" + err);
+      console.log("addExercise failed! " + err);
+    //   console.log(err);
+    });
+}
+
+export function loadExercises(setExerciseList) {
+    console.log('loadExercises is called');
+    Axios.get('/exercises')
+    .then((response) => {
+        setExerciseList(response.data);
     });
 }
 
