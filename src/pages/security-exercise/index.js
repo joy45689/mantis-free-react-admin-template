@@ -78,6 +78,7 @@ import { PlusOutlined } from '@ant-design/icons';
 const SecurityExercise = () => {
   const [showAddExerForm, setShowAddExerForm] = useState(false);
   const addExercise = () => {
+    console.log("showAddExerForm: "+ showAddExerForm)
     setShowAddExerForm(!showAddExerForm);
   };
 
@@ -103,7 +104,7 @@ const SecurityExercise = () => {
           {/* Form */}
           {
             showAddExerForm && <Grid item xs={12} md={4} lg={4}>
-              <AddExerForm  />
+              <AddExerForm setDispaly={setShowAddExerForm}/>
             </Grid>
           }
         </Grid>

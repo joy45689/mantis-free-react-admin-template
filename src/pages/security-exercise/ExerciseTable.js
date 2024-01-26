@@ -169,12 +169,12 @@ export default function OrderTable() {
     fetch('/exercises')
     .then((response) => {
       let json = response.json();
-      console.log(json)
+      // console.log(json)
       return json
     })
     .then((data) => {
       setExerciseList(data);
-      console.log(data);
+      // console.log(data);
     });
   }, []);
 

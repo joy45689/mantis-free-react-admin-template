@@ -1,4 +1,5 @@
 // import { useEffect, useState } from 'react';
+// import { useState } from 'react';
 
 // material-ui
 import {
@@ -13,6 +14,7 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import Axios from "axios";
 
 // project import
 import AnimateButton from 'components/@extended/AnimateButton';
@@ -20,7 +22,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 
 // ============================|| FIREBASE - ADD SECURITY EXERCISE ||============================ //
-function formatDate(){
+const formatDate = () => {
   let date = new Date();
 
   let day = date.getDate();
@@ -38,8 +40,20 @@ function formatDate(){
   return `${year}-${month}-${day}`;
 }
 
-const AddExerForm = () => {
+const addExercise = (values, setDispaly) => {
+  Axios.post("/exercises/create", values)
+  .then((res) => {
+    setDispaly(false);
+    console.log(res);
+    console.log("done!");
+  })
+  .catch((err) => {
+    setDispaly(true);
+    console.log(err);
+  });
+}
 
+const AddExerForm = ({ setDispaly }) => {
   return (
     <>
       <Formik
@@ -56,8 +70,9 @@ const AddExerForm = () => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
+            addExercise(values, setDispaly);
             setStatus({ success: false });
-            setSubmitting(false);            
+            setSubmitting(false);
             console.log(values);
           } catch (err) {
             console.error(err);
