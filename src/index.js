@@ -7,6 +7,7 @@ import 'simplebar/src/simplebar.css';
 
 // third-party
 import { Provider as ReduxProvider } from 'react-redux';
+import { SnackbarProvider } from 'notistack';
 
 // apex-chart
 import 'assets/third-party/apex-chart.css';
@@ -24,7 +25,9 @@ root.render(
   <StrictMode>
     <ReduxProvider store={store}>
       <BrowserRouter basename="/free">
-        <App />
+        <SnackbarProvider anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+          <App />
+        </SnackbarProvider>
       </BrowserRouter>
     </ReduxProvider>
   </StrictMode>

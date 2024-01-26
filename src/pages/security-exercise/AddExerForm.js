@@ -15,6 +15,7 @@ import {
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Axios from "axios";
+import { useSnackbar } from 'notistack';
 
 // project import
 import AnimateButton from 'components/@extended/AnimateButton';
@@ -22,6 +23,8 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 
 // ============================|| FIREBASE - ADD SECURITY EXERCISE ||============================ //
+
+
 const formatDate = () => {
   let date = new Date();
 
@@ -40,9 +43,10 @@ const formatDate = () => {
   return `${year}-${month}-${day}`;
 }
 
-const addExercise = (values, setDispaly) => {
+const addExercise = (values, setDispaly, enqueueSnackbar) => {
   Axios.post("/exercises/create", values)
   .then((res) => {
+    enqueueSnackbar('Successfully added.', {variant: 'success'});
     setDispaly(false);
     console.log(res);
     console.log("done!");
@@ -54,6 +58,7 @@ const addExercise = (values, setDispaly) => {
 }
 
 const AddExerForm = ({ setDispaly }) => {
+  const { enqueueSnackbar } = useSnackbar();
   return (
     <>
       <Formik
@@ -70,7 +75,7 @@ const AddExerForm = ({ setDispaly }) => {
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
-            addExercise(values, setDispaly);
+            addExercise(values, setDispaly, enqueueSnackbar);
             setStatus({ success: false });
             setSubmitting(false);
             console.log(values);
