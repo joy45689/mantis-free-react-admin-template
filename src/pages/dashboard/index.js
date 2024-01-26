@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // material-ui
 import {
@@ -27,6 +27,7 @@ import ReportAreaChart from './ReportAreaChart';
 import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
+import { loadExercises } from 'pages/security-exercise/route';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -73,6 +74,10 @@ const status = [
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
+  const [exerciseList, setExerciseList] = useState([]);
+  useEffect(() => {
+    loadExercises(setExerciseList);
+  }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
@@ -85,7 +90,7 @@ const DashboardDefault = () => {
           <Grid item />
         </Grid>
         <MainCard sx={{ mt: 2 }} content={false}>
-          <ExerciseTable />
+          <ExerciseTable exerciseList={exerciseList}/>
         </MainCard>
       </Grid>
 

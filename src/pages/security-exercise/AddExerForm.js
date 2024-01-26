@@ -14,11 +14,11 @@ import {
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import Axios from "axios";
 import { useSnackbar } from 'notistack';
 
 // project import
 import AnimateButton from 'components/@extended/AnimateButton';
+import addExercise from './route';
 
 // assets
 
@@ -43,20 +43,6 @@ const formatDate = () => {
   return `${year}-${month}-${day}`;
 }
 
-const addExercise = (values, setDispaly, enqueueSnackbar) => {
-  Axios.post("/exercises/create", values)
-  .then((res) => {
-    enqueueSnackbar('Successfully added.', {variant: 'success'});
-    setDispaly(false);
-    console.log(res);
-    console.log("done!");
-  })
-  .catch((err) => {
-    setDispaly(true);
-    console.log(err);
-  });
-}
-
 const AddExerForm = ({ setDispaly }) => {
   const { enqueueSnackbar } = useSnackbar();
   return (
@@ -78,7 +64,6 @@ const AddExerForm = ({ setDispaly }) => {
             addExercise(values, setDispaly, enqueueSnackbar);
             setStatus({ success: false });
             setSubmitting(false);
-            console.log(values);
           } catch (err) {
             console.error(err);
             setStatus({ success: false });

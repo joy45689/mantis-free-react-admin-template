@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
@@ -157,26 +157,12 @@ ExerciseStatus.propTypes = {
 
 // ==============================|| TABLE ||============================== //
 
-export default function OrderTable() {
+export default function ExerciseTable({exerciseList}) {
   const [order] = useState('asc');
   const [orderBy] = useState('status');
   const [selected] = useState([]);
 
   const isSelected = (sn) => selected.indexOf(sn) !== -1;
-
-  const [exerciseList, setExerciseList] = useState([]);
-  useEffect(() => {
-    fetch('/exercises')
-    .then((response) => {
-      let json = response.json();
-      // console.log(json)
-      return json
-    })
-    .then((data) => {
-      setExerciseList(data);
-      // console.log(data);
-    });
-  }, []);
 
   return (
     <Box>

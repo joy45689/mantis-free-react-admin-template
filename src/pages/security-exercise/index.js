@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 // material-ui
 import {
@@ -24,6 +24,7 @@ import {
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
+import { loadExercises } from 'pages/security-exercise/route';
 
 // assets
 import { PlusOutlined } from '@ant-design/icons';
@@ -77,6 +78,12 @@ import { PlusOutlined } from '@ant-design/icons';
 
 const SecurityExercise = () => {
   const [showAddExerForm, setShowAddExerForm] = useState(false);
+
+  const [exerciseList, setExerciseList] = useState([]);
+  useEffect(() => {
+    loadExercises(setExerciseList);
+  }, []);
+
   const addExercise = () => {
     console.log("showAddExerForm: "+ showAddExerForm)
     setShowAddExerForm(!showAddExerForm);
@@ -113,7 +120,7 @@ const SecurityExercise = () => {
       {/* Tables */}
       <Grid item xs={12} md={7} lg={8}>
         <MainCard content={false}>
-          <ExerciseTable />
+          <ExerciseTable exerciseList={exerciseList}/>
         </MainCard>
       </Grid>
 
