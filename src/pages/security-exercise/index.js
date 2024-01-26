@@ -24,7 +24,7 @@ const SecurityExercise = () => {
   const [exerciseList, setExerciseList] = useState([]);
   useEffect(() => {
     loadExercises(setExerciseList);
-  }, []);
+  }, [showAddExerForm]);
 
   const addExercise = () => {
     console.log("showAddExerForm: "+ showAddExerForm)
