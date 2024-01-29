@@ -12,6 +12,7 @@ export default function addExercise (values, setDispaly, enqueueSnackbar) {
     })
     .catch((err) => {
       setDispaly(true);
+      enqueueSnackbar('Failed to add.', {variant: 'error'});
       console.log("addExercise failed! " + err);
     //   console.log(err);
     });
