@@ -25,9 +25,7 @@ import addExercise from './route';
 // ============================|| FIREBASE - ADD SECURITY EXERCISE ||============================ //
 
 
-const formatDate = () => {
-  let date = new Date();
-
+const formatDate = (date) => {
   let day = date.getDate();
   let month = date.getMonth()+1;
   let year = date.getFullYear();
@@ -40,7 +38,7 @@ const formatDate = () => {
   }
   
   // return year + "-" + month + "-" + day;
-  return `${year}-${month}-${day}`;
+  return `${year}-${month}-${day} 00:00:00`;
 }
 
 const AddExerForm = ({ setDispaly }) => {
@@ -50,8 +48,8 @@ const AddExerForm = ({ setDispaly }) => {
       <Formik
         initialValues={{
           organization: '',
-          start: formatDate(),
-          end: formatDate(),
+          start: formatDate(new Date()),
+          end: formatDate(new Date()),
           submit: null
         }}
         validationSchema={Yup.object().shape({
@@ -106,7 +104,7 @@ const AddExerForm = ({ setDispaly }) => {
                     fullWidth
                     error={Boolean(touched.start && errors.start)}
                     id="start-add-exer"
-                    type="date"
+                    type="datetime-local"
                     value={values.start}
                     name="start"
                     onBlur={handleBlur}
@@ -129,7 +127,7 @@ const AddExerForm = ({ setDispaly }) => {
                     fullWidth
                     error={Boolean(touched.end && errors.end)}
                     id="end-add-exer"
-                    type="date"
+                    type="datetime-local"
                     value={values.end}
                     name="end"
                     onBlur={handleBlur}

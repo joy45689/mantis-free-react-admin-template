@@ -52,7 +52,7 @@ const SecurityExercise = () => {
           </Grid>
           {/* Form */}
           {
-            showAddExerForm && <Grid item xs={12} md={4} lg={4}>
+            showAddExerForm && <Grid item xs={8} md={5} lg={4}>
               <AddExerForm setDispaly={setShowAddExerForm}/>
             </Grid>
           }

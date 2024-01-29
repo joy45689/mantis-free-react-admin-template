@@ -34,22 +34,30 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function formatDate(dateTime){
-    let date = new Date(dateTime);
+function formatDate(dateTime) {
+  let date = new Date(dateTime);
 
-    let day = date.getDate();
-    let month = date.getMonth()+1;
-    let year = date.getFullYear();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let hour = date.getHours();
+  let min = date.getMinutes();
 
-    if (day < 10) {
-        day = '0' + day;
-    }
-    if (month < 10) {
-        month = `0${month}`;
-    }
-    
-    // return year + "-" + month + "-" + day;
-    return `${year}-${month}-${day}`;
+  if (day < 10) {
+    day = '0' + day;
+  }
+  if (month < 10) {
+    month = `0${month}`;
+  }
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+  if (min < 10) {
+    min = `0${min}`;
+  }
+
+  // return year + "-" + month + "-" + day;
+  return `${year}-${month}-${day} ${hour}:${min}`;
 }
 
 // ==============================|| TABLE - HEADER CELL ||============================== //
@@ -209,8 +217,8 @@ export default function ExerciseTable({exerciseList}) {
                     </Link>
                   </TableCell>
                   <TableCell align="left">{row.org}</TableCell>
-                  <TableCell>{formatDate(row.start)}</TableCell>
-                  <TableCell>{formatDate(row.end)}</TableCell>
+                  <TableCell>{formatDate(row.start_time)}</TableCell>
+                  <TableCell>{formatDate(row.end_time)}</TableCell>
                   <TableCell align="left">
                     <ExerciseStatus status={row.status} />
                   </TableCell>
