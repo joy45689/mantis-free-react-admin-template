@@ -18,6 +18,9 @@ import { PlusOutlined } from '@ant-design/icons';
 
 // ==============================|| Security Exercise ||============================== //
 
+
+
+
 const SecurityExercise = () => {
   const [showAddExerForm, setShowAddExerForm] = useState(false);
 
@@ -30,6 +33,11 @@ const SecurityExercise = () => {
     console.log("showAddExerForm: "+ showAddExerForm)
     setShowAddExerForm(!showAddExerForm);
   };
+
+  const handleDelete = (targetSN, title) => {
+    console.log(targetSN + " " + title + " clicked");
+    setExerciseList(exerciseList.filter(e => e.sn !== targetSN));
+  }
 
   return (
     <Grid container rowSpacing={3} columnSpacing={2.75}>
@@ -62,7 +70,7 @@ const SecurityExercise = () => {
       {/* Tables */}
       <Grid item xs={12} md={12} lg={12} xl={7}>
         <MainCard content={false}>
-          <ExerciseTable exerciseList={exerciseList} displayActionBtns/>
+          <ExerciseTable exerciseList={exerciseList} displayActionBtns deleteRow={handleDelete}/>
         </MainCard>
       </Grid>
 

@@ -87,9 +87,7 @@ const handleAbort = (str) => {
   console.log(str + " clicked");
 }
 
-const handleDelete = (str) => {
-  console.log(str + " clicked");
-}
+
 
 
 // ==============================|| TABLE - HEADER CELL ||============================== //
@@ -141,7 +139,7 @@ function FunctionButton({title, sn, icon: Icon, handler}){ //rename icon prop to
       {
         <Tooltip title={title}>
           <IconButton
-            onClick={() => handler(sn  + " " + title)}
+            onClick={() => handler(sn, title)}
             tooltip={title}
             aria-label={title.toLowerCase()}>
             <Icon />
@@ -220,7 +218,7 @@ ExerciseStatus.propTypes = {
 
 // ==============================|| TABLE ||============================== //
 
-export default function ExerciseTable({exerciseList, displayActionBtns}) {
+export default function ExerciseTable({exerciseList, displayActionBtns, deleteRow}) {
   const [order] = useState('asc');
   const [orderBy] = useState('status');
   const [selected] = useState([]);
@@ -282,7 +280,7 @@ export default function ExerciseTable({exerciseList, displayActionBtns}) {
                     <TableCell>
                       <FunctionButton title="View" sn={row.sn} icon={ViewIcon} handler={handleView} />
                       <FunctionButton title="Abort" sn={row.sn} icon={AbortIcon} handler={handleAbort} />
-                      <FunctionButton title="Delete" sn={row.sn} icon={DeleteIcon} handler={handleDelete} />
+                      <FunctionButton title="Delete" sn={row.sn} icon={DeleteIcon} handler={deleteRow} />
                     </TableCell>
                   }
                 </TableRow>
