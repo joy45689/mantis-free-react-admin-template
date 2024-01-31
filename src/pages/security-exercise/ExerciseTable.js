@@ -3,7 +3,25 @@ import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { Box, Link, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
+import { 
+  Box, 
+  Link, 
+  Stack, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Typography, 
+  IconButton,
+  Tooltip
+} from '@mui/material';
+
+// Icon
+import DeleteIcon from '@mui/icons-material/Delete';
+import ViewIcon from '@mui/icons-material/Visibility';
+import AbortIcon from '@mui/icons-material/Block';
 
 // project import
 import Dot from 'components/@extended/Dot';
@@ -60,6 +78,20 @@ function formatDate(dateTime) {
   return `${year}-${month}-${day} ${hour}:${min}`;
 }
 
+
+const handleView = (str) => {
+  console.log(str + " clicked");
+}
+
+const handleAbort = (str) => {
+  console.log(str + " clicked");
+}
+
+const handleDelete = (str) => {
+  console.log(str + " clicked");
+}
+
+
 // ==============================|| TABLE - HEADER CELL ||============================== //
 
 const headCells = [
@@ -92,10 +124,33 @@ const headCells = [
     align: 'left',
     disablePadding: false,
     label: 'Status'
+  },
+  {
+    id: 'functions',
+    align: 'left',
+    disablePadding: false,
+    label: ''
   }
 ];
 
-// ==============================|| TABLE - HEADER ||============================== //
+// ==============================|| TABLE - ELEMENT ||============================== //
+
+function FunctionButton({title, sn, icon: Icon, handler}){ //rename icon prop to Icon (capital first letter)
+  return (
+    <>
+      {
+        <Tooltip title={title}>
+          <IconButton
+            onClick={() => handler(sn  + " " + title)}
+            tooltip={title}
+            aria-label={title.toLowerCase()}>
+            <Icon />
+          </IconButton>
+        </Tooltip>
+      }
+    </>
+  );
+}
 
 
 
@@ -165,7 +220,7 @@ ExerciseStatus.propTypes = {
 
 // ==============================|| TABLE ||============================== //
 
-export default function ExerciseTable({exerciseList}) {
+export default function ExerciseTable({exerciseList, displayActionBtns}) {
   const [order] = useState('asc');
   const [orderBy] = useState('status');
   const [selected] = useState([]);
@@ -222,9 +277,14 @@ export default function ExerciseTable({exerciseList}) {
                   <TableCell align="left">
                     <ExerciseStatus status={row.status} />
                   </TableCell>
-                  {/* <TableCell align="right">
-                    <NumberFormat value={row.status} displayType="text" thousandSeparator prefix="$" />
-                  </TableCell> */}
+                  {/* Function Buttons */}
+                  {displayActionBtns &&
+                    <TableCell>
+                      <FunctionButton title="View" sn={row.sn} icon={ViewIcon} handler={handleView} />
+                      <FunctionButton title="Abort" sn={row.sn} icon={AbortIcon} handler={handleAbort} />
+                      <FunctionButton title="Delete" sn={row.sn} icon={DeleteIcon} handler={handleDelete} />
+                    </TableCell>
+                  }
                 </TableRow>
               );
             })}

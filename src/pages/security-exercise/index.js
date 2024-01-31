@@ -60,9 +60,9 @@ const SecurityExercise = () => {
       </Grid>
 
       {/* Tables */}
-      <Grid item xs={12} md={7} lg={8}>
+      <Grid item xs={12} md={12} lg={12} xl={7}>
         <MainCard content={false}>
-          <ExerciseTable exerciseList={exerciseList}/>
+          <ExerciseTable exerciseList={exerciseList} displayActionBtns/>
         </MainCard>
       </Grid>
 
