@@ -79,13 +79,9 @@ function formatDate(dateTime) {
 }
 
 
-const handleView = (str) => {
-  console.log(str + " clicked");
-}
 
-const handleAbort = (str) => {
-  console.log(str + " clicked");
-}
+
+
 
 
 
@@ -218,13 +214,12 @@ ExerciseStatus.propTypes = {
 
 // ==============================|| TABLE ||============================== //
 
-export default function ExerciseTable({exerciseList, displayActionBtns, deleteRow}) {
+export default function ExerciseTable({exerciseList, displayActionBtns, viewRow, deleteRow, abortRow}) {
   const [order] = useState('asc');
   const [orderBy] = useState('status');
   const [selected] = useState([]);
 
   const isSelected = (sn) => selected.indexOf(sn) !== -1;
-
   return (
     <Box>
       <TableContainer
@@ -278,8 +273,8 @@ export default function ExerciseTable({exerciseList, displayActionBtns, deleteRo
                   {/* Function Buttons */}
                   {displayActionBtns &&
                     <TableCell>
-                      <FunctionButton title="View" sn={row.sn} icon={ViewIcon} handler={handleView} />
-                      <FunctionButton title="Abort" sn={row.sn} icon={AbortIcon} handler={handleAbort} />
+                      <FunctionButton title="View" sn={row.sn} icon={ViewIcon} handler={viewRow} />
+                      <FunctionButton title="Abort" sn={row.sn} icon={AbortIcon} handler={abortRow} />
                       <FunctionButton title="Delete" sn={row.sn} icon={DeleteIcon} handler={deleteRow} />
                     </TableCell>
                   }
