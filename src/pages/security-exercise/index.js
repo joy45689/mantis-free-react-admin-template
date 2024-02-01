@@ -11,11 +11,13 @@ import {
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
-import { loadExercises } from 'pages/security-exercise/route';
+import { loadExercises, abortExercise } from 'pages/security-exercise/route';
+import confirmDialog from 'components/ConfirmDialog';
 
 // assets
 import { PlusOutlined } from '@ant-design/icons';
-import alertDialog from 'components/ConfirmDialog';
+import { useSnackbar } from 'notistack';
+
 
 // ==============================|| Security Exercise ||============================== //
 
@@ -23,17 +25,17 @@ import alertDialog from 'components/ConfirmDialog';
 
 
 const SecurityExercise = () => {
+  const { enqueueSnackbar } = useSnackbar();
   const [showAddExerForm, setShowAddExerForm] = useState(false);
 
   const [exerciseList, setExerciseList] = useState([]);
-  const [ getConfirmation, Confirmation ] = alertDialog();
+  const [ getConfirmation, Confirmation ] = confirmDialog();
 
   useEffect(() => {
     loadExercises(setExerciseList);
   }, [showAddExerForm]);
 
   const handleAdd = () => {
-    console.log("showAddExerForm: "+ showAddExerForm)
     setShowAddExerForm(!showAddExerForm);
   };
 
@@ -60,13 +62,16 @@ const SecurityExercise = () => {
     const status = await getConfirmation('Warning!','Do you want to abort this security exercise?');
     
     if (status) {
-      console.log("you click Yes");
-      const updatedList = exerciseList.map(item =>
-        item.sn === targetSN ? { ...item, status: 3 } : item
-      );
-      setExerciseList(updatedList);
-    } else {
-      console.log("you click No");
+      if(await abortExercise(targetSN)){
+        const updatedList = exerciseList.map(item =>
+          item.sn === targetSN ? { ...item, status: 3 } : item
+        );
+        setExerciseList(updatedList);
+        enqueueSnackbar('Successfully abborted.', {variant: 'success'});
+      } else {
+        enqueueSnackbar('Failed to abort.', {variant: 'error'});
+      }
+
     }
 
     //Wrong

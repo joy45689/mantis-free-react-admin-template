@@ -19,11 +19,28 @@ export default function addExercise (values, setDispaly, enqueueSnackbar) {
 }
 
 export function loadExercises(setExerciseList) {
-    console.log('loadExercises is called');
     Axios.get('/exercises')
     .then((response) => {
         setExerciseList(response.data);
     });
+}
+
+export function abortExercise(sn) {
+  console.log('abortExercise is called');
+  let promise = new Promise((resolve) => {
+    Axios.post("/exercises/abort", { "sn": sn })
+      .then(() => {
+        // console.log(res);
+        console.log("abortExercise done!");
+        resolve(true);
+      })
+      .catch((err) => {
+        console.log("abortExercise failed! " + err);
+        resolve(false);
+        //   console.log(err);
+      });
+  });
+  return promise;
 }
 
 // exports.loadExercises = (setExerciseList) => {
