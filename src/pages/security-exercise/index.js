@@ -15,6 +15,7 @@ import { loadExercises } from 'pages/security-exercise/route';
 
 // assets
 import { PlusOutlined } from '@ant-design/icons';
+import alertDialog from 'components/ConfirmDialog';
 
 // ==============================|| Security Exercise ||============================== //
 
@@ -25,31 +26,48 @@ const SecurityExercise = () => {
   const [showAddExerForm, setShowAddExerForm] = useState(false);
 
   const [exerciseList, setExerciseList] = useState([]);
+  const [ getConfirmation, Confirmation ] = alertDialog();
 
   useEffect(() => {
     loadExercises(setExerciseList);
   }, [showAddExerForm]);
 
-  const addExercise = () => {
+  const handleAdd = () => {
     console.log("showAddExerForm: "+ showAddExerForm)
     setShowAddExerForm(!showAddExerForm);
   };
 
+  // TODO to be update
   const handleView = (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
   }
 
-  const handleDelete = (targetSN, title) => {
+  const handleDelete = async (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
-    setExerciseList(exerciseList.filter(e => e.sn !== targetSN));
+    const status = await getConfirmation('Warning!','Do you want to delete this security exercise?');
+    
+    if (status) {
+      console.log("you click Yes");
+      setExerciseList(exerciseList.filter(e => e.sn !== targetSN));
+    } else {
+      console.log("you click No");
+    }
   }
 
-  const handleAbort = (targetSN, title) => {
-    const updatedList = exerciseList.map(item =>
-      item.sn === targetSN ? { ...item, status: 3 } : item
-    );
-    setExerciseList(updatedList);
+  // TODO to be update
+  const handleAbort = async (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
+    const status = await getConfirmation('Warning!','Do you want to abort this security exercise?');
+    
+    if (status) {
+      console.log("you click Yes");
+      const updatedList = exerciseList.map(item =>
+        item.sn === targetSN ? { ...item, status: 3 } : item
+      );
+      setExerciseList(updatedList);
+    } else {
+      console.log("you click No");
+    }
 
     //Wrong
     // for (var i = 0; i < exerciseList.length; i++) {
@@ -59,10 +77,13 @@ const SecurityExercise = () => {
     //   }
     // }
     // setExerciseList(exerciseList);
+
   }
 
   return (
     <Grid container rowSpacing={3} columnSpacing={2.75}>
+
+      <Confirmation />
 
       {/* Title */}
       <Grid item xs={12} md={7} lg={8}>
@@ -71,12 +92,11 @@ const SecurityExercise = () => {
         </Grid>
       </Grid>
 
-
       {/* Buttons */}
       <Grid item xs={12}>
         <Grid container rowSpacing={1}>
           <Grid item xs={12}>
-            <Button onClick={addExercise} variant="contained" color="success" size="small" startIcon={<PlusOutlined />}>
+            <Button onClick={handleAdd} variant="contained" color="success" size="small" startIcon={<PlusOutlined />}>
               Add
             </Button>
           </Grid>
