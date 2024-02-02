@@ -27,6 +27,20 @@ export function loadExercises(setExerciseList) {
     });
 }
 
+export function loadUserScore(sn) {
+  let promise = new Promise((resolve) => {
+    Axios.post('/exercises/user/score', { 'sn': sn })
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((err)=>{
+      console.log(`loadUserScore failed!\n${err}\n${err.response.data}`);
+      resolve(null);
+    });
+  });
+  return promise;
+}
+
 export function abortExercise(sn) {
   let promise = new Promise((resolve) => {
     Axios.post("/exercises/abort", { "sn": sn })

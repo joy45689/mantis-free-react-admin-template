@@ -25,6 +25,7 @@ import AbortIcon from '@mui/icons-material/Block';
 
 // project import
 import Dot from 'components/@extended/Dot';
+import { formatDatetime } from 'utils/dateFormatter';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -52,32 +53,6 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-function formatDate(dateTime) {
-  let date = new Date(dateTime);
-
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  let hour = date.getHours();
-  let min = date.getMinutes();
-
-  if (day < 10) {
-    day = '0' + day;
-  }
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  if (hour < 10) {
-    hour = `0${hour}`;
-  }
-  if (min < 10) {
-    min = `0${min}`;
-  }
-
-  // return year + "-" + month + "-" + day;
-  return `${year}-${month}-${day} ${hour}:${min}`;
-}
-
 
 
 
@@ -91,7 +66,7 @@ function formatDate(dateTime) {
 const headCells = [
   {
     id: 'sn',
-    align: 'left',
+    align: 'right',
     disablePadding: false,
     label: 'Serial Number'
   },
@@ -103,15 +78,15 @@ const headCells = [
   },
   {
     id: 'start',
-    align: 'left',
+    align: 'right',
     disablePadding: false,
-    label: 'Start'
+    label: 'Start Time'
   },
   {
     id: 'end',
-    align: 'left',
+    align: 'right',
     disablePadding: false,
-    label: 'End'
+    label: 'End Time'
   },
   {
     id: 'status',
@@ -259,14 +234,14 @@ export default function ExerciseTable({exerciseList, displayActionBtns, viewRow,
                   key={row.sn}
                   selected={isItemSelected}
                 >
-                  <TableCell component="th" id={labelId} scope="row" align="left">
+                  <TableCell component="th" id={labelId} scope="row" align="right">
                     <Link color="secondary" component={RouterLink} to="/color">
                       {row.sn}
                     </Link>
                   </TableCell>
                   <TableCell align="left">{row.org}</TableCell>
-                  <TableCell>{formatDate(row.start_time)}</TableCell>
-                  <TableCell>{formatDate(row.end_time)}</TableCell>
+                  <TableCell align="right">{formatDatetime(row.start_time)}</TableCell>
+                  <TableCell align="right">{formatDatetime(row.end_time)}</TableCell>
                   <TableCell align="left">
                     <ExerciseStatus status={row.status} />
                   </TableCell>

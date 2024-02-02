@@ -4,14 +4,18 @@ import { useState, useEffect } from 'react';
 import {
   Button,
   Grid,
-  Typography
+  Typography,
+  IconButton
 } from '@mui/material';
+
+import CloseIcon from '@mui/icons-material/Close';
 
 // project import
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
+import UserScoreTable from './UserScoreTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
-import { loadExercises, abortExercise, deleteExercise } from 'pages/security-exercise/route';
+import { loadExercises, abortExercise, deleteExercise, loadUserScore } from 'pages/security-exercise/route';
 import confirmDialog from 'components/ConfirmDialog';
 
 // assets
@@ -27,9 +31,13 @@ import { useSnackbar } from 'notistack';
 const SecurityExercise = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [showAddExerForm, setShowAddExerForm] = useState(false);
+  const [showUserScore, setShowUserScore] = useState(false);
+
 
   const [exerciseList, setExerciseList] = useState([]);
-  const [ getConfirmation, Confirmation ] = confirmDialog();
+  const [userScoreList, setUserScoreList] = useState([]);
+  // const [sn, setSn] = useState('');
+  const [getConfirmation, Confirmation] = confirmDialog();
 
   useEffect(() => {
     loadExercises(setExerciseList);
@@ -39,9 +47,19 @@ const SecurityExercise = () => {
     setShowAddExerForm(!showAddExerForm);
   };
 
-  // TODO to be update
   const handleView = (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
+    loadUserScore(targetSN)
+    .then((result) => {
+      if(result != null){
+        // console.log(result);
+        setUserScoreList(result);        
+        setShowUserScore(true);
+      } else {
+        enqueueSnackbar('Failed to load data.', {variant: 'error'});
+      }
+    });
+    
   }
 
   const handleDelete = async (targetSN, title) => {
@@ -59,7 +77,6 @@ const SecurityExercise = () => {
     }
   }
 
-  // TODO to be update
   const handleAbort = async (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
     const status = await getConfirmation('Warning!','Do you want to abort this security exercise?');
@@ -119,9 +136,30 @@ const SecurityExercise = () => {
       {/* Tables */}
       <Grid item xs={12} md={12} lg={12} xl={7}>
         <MainCard content={false}>
-          <ExerciseTable exerciseList={exerciseList} displayActionBtns viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort}/>
+          <ExerciseTable exerciseList={exerciseList} displayActionBtns viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort} />
         </MainCard>
       </Grid>
+
+      {/* User score */}
+      {showUserScore &&
+        <Grid item xs={12}>
+          {/* Title */}
+          <Grid item xs={12} md={8} lg={8} xl={5}>
+            <Grid container alignItems="left" justifyContent="space-between">
+              <Typography variant="h5">User Score</Typography>
+              <IconButton onClick={() => setShowUserScore(false)}>
+                <CloseIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
+          {/* Table */}
+          <Grid item xs={12} md={8} lg={8} xl={5}>
+            <UserScoreTable userScoreList={userScoreList} />
+          </Grid>
+        </Grid>
+      }
+
+
 
     </Grid>
   );
