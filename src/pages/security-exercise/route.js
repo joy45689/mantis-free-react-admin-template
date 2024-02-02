@@ -13,31 +13,45 @@ export default function addExercise (values, setDispaly, enqueueSnackbar) {
     .catch((err) => {
       setDispaly(true);
       enqueueSnackbar('Failed to add.', {variant: 'error'});
-      console.log("addExercise failed! " + err);
-    //   console.log(err);
+      console.log(`addExercise failed!\n${err}\n${err.response.data}`);
     });
 }
 
 export function loadExercises(setExerciseList) {
     Axios.get('/exercises')
     .then((response) => {
-        setExerciseList(response.data);
+      setExerciseList(response.data);
+    })
+    .catch((err)=>{
+      console.log(`abortExercise failed!\n${err}\n${err.response.data}`);
     });
 }
 
 export function abortExercise(sn) {
-  console.log('abortExercise is called');
   let promise = new Promise((resolve) => {
     Axios.post("/exercises/abort", { "sn": sn })
       .then(() => {
-        // console.log(res);
         console.log("abortExercise done!");
         resolve(true);
       })
       .catch((err) => {
-        console.log("abortExercise failed! " + err);
+        console.log(`abortExercise failed!\n${err}\n${err.response.data}`);
         resolve(false);
-        //   console.log(err);
+      });
+  });
+  return promise;
+}
+
+export function deleteExercise(sn) {
+  let promise = new Promise((resolve) => {
+    Axios.post("/exercises/delete", { "sn": sn })
+      .then(() => {
+        console.log("deleteExercise done!");
+        resolve(true);
+      })
+      .catch((err) => {
+        console.log(`deleteExercise failed!\n${err}\n${err.response.data}`);
+        resolve(false);
       });
   });
   return promise;

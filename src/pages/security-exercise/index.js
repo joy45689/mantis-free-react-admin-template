@@ -11,7 +11,7 @@ import {
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
-import { loadExercises, abortExercise } from 'pages/security-exercise/route';
+import { loadExercises, abortExercise, deleteExercise } from 'pages/security-exercise/route';
 import confirmDialog from 'components/ConfirmDialog';
 
 // assets
@@ -49,10 +49,13 @@ const SecurityExercise = () => {
     const status = await getConfirmation('Warning!','Do you want to delete this security exercise?');
     
     if (status) {
-      console.log("you click Yes");
-      setExerciseList(exerciseList.filter(e => e.sn !== targetSN));
-    } else {
-      console.log("you click No");
+      if(await deleteExercise(targetSN)){
+        setExerciseList(exerciseList.filter(e => e.sn !== targetSN));
+        enqueueSnackbar('Successfully deleted.', {variant: 'success'});
+      } else {
+        enqueueSnackbar('Failed to delete.', {variant: 'error'});
+      }
+      
     }
   }
 
@@ -71,7 +74,6 @@ const SecurityExercise = () => {
       } else {
         enqueueSnackbar('Failed to abort.', {variant: 'error'});
       }
-
     }
 
     //Wrong
