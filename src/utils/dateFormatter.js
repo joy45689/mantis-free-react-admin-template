@@ -5,7 +5,7 @@ export function formatDatetime(dateTime) {
   if(dateTime == null){
     return 'N/A';
   }
-  
+
   let date = new Date(dateTime);
 
   let day = date.getDate();
@@ -13,6 +13,7 @@ export function formatDatetime(dateTime) {
   let year = date.getFullYear();
   let hour = date.getHours();
   let min = date.getMinutes();
+  let sec = date.getSeconds();
 
   if (day < 10) {
     day = '0' + day;
@@ -26,7 +27,10 @@ export function formatDatetime(dateTime) {
   if (min < 10) {
     min = `0${min}`;
   }
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
 
   // return year + "-" + month + "-" + day;
-  return `${year}-${month}-${day} ${hour}:${min}`;
+  return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
 }

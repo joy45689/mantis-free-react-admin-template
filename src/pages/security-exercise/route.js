@@ -23,7 +23,7 @@ export function loadExercises(setExerciseList) {
       setExerciseList(response.data);
     })
     .catch((err)=>{
-      console.log(`abortExercise failed!\n${err}\n${err.response.data}`);
+      console.log(`loadExercises failed!\n${err}\n${err.response.data}`);
     });
 }
 

@@ -17,10 +17,18 @@ import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
 import { loadExercises, abortExercise, deleteExercise, loadUserScore } from 'pages/security-exercise/route';
 import confirmDialog from 'components/ConfirmDialog';
+import { formatDatetime } from 'utils/dateFormatter';
 
 // assets
 import { PlusOutlined } from '@ant-design/icons';
 import { useSnackbar } from 'notistack';
+
+
+// ==============================|| Functions ||============================== //
+const getPercentage = (partial, total) => {
+  let percent = Math.round((partial/total) * 100);
+  return `${percent}%`;
+}
 
 
 // ==============================|| Security Exercise ||============================== //
@@ -32,11 +40,11 @@ const SecurityExercise = () => {
   const { enqueueSnackbar } = useSnackbar();
   const [showAddExerForm, setShowAddExerForm] = useState(false);
   const [showUserScore, setShowUserScore] = useState(false);
+  
 
-
+  const [summary, setSummary] = useState([]);
   const [exerciseList, setExerciseList] = useState([]);
   const [userScoreList, setUserScoreList] = useState([]);
-  // const [sn, setSn] = useState('');
   const [getConfirmation, Confirmation] = confirmDialog();
 
   useEffect(() => {
@@ -49,10 +57,20 @@ const SecurityExercise = () => {
 
   const handleView = (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
+
     loadUserScore(targetSN)
     .then((result) => {
       if(result != null){
-        // console.log(result);
+        const total = result.length;
+        let score = 0;
+        result.forEach((user) => score = score + user.score);
+        let exerciseInfo = exerciseList.filter(e => e.sn === targetSN);
+        exerciseInfo = {
+          ...exerciseInfo[0], 
+          summary: `${score}/${total} (${getPercentage(score, total)})`
+        }
+        setSummary(exerciseInfo);
+
         setUserScoreList(result);        
         setShowUserScore(true);
       } else {
@@ -73,7 +91,6 @@ const SecurityExercise = () => {
       } else {
         enqueueSnackbar('Failed to delete.', {variant: 'error'});
       }
-      
     }
   }
 
@@ -112,7 +129,7 @@ const SecurityExercise = () => {
       {/* Title */}
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Typography variant="h5">Secury Exercises</Typography>
+          <Typography variant="h4">Secury Exercises</Typography>
         </Grid>
       </Grid>
 
@@ -142,19 +159,34 @@ const SecurityExercise = () => {
 
       {/* User score */}
       {showUserScore &&
+
         <Grid item xs={12}>
-          {/* Title */}
-          <Grid item xs={12} md={8} lg={8} xl={5}>
-            <Grid container alignItems="left" justifyContent="space-between">
-              <Typography variant="h5">User Score</Typography>
-              <IconButton onClick={() => setShowUserScore(false)}>
-                <CloseIcon />
-              </IconButton>
+          <Grid container rowSpacing={2.5}>
+            {/* Title */}
+            <Grid item xs={12} md={8} lg={8} xl={5}>
+              <Grid container alignItems="left" justifyContent="space-between">
+                <Typography variant="h4">User Score</Typography>
+                <IconButton onClick={() => setShowUserScore(false)}>
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
             </Grid>
-          </Grid>
-          {/* Table */}
-          <Grid item xs={12} md={8} lg={8} xl={5}>
-            <UserScoreTable userScoreList={userScoreList} />
+            {/* Info */}
+            <Grid item xs={12}>
+              <Typography variant="h5">SN: {summary.sn}</Typography>
+              <Typography variant="h5">Organization: {summary.org}</Typography>
+              {/* <Typography variant="h5">Peroid: {formatDatetime(info.start_time)} - {formatDatetime(info.end_time)}</Typography> */}
+              <Typography variant="h5">Start: {formatDatetime(summary.start_time)}</Typography>
+              <Typography variant="h5">End: {formatDatetime(summary.end_time)}</Typography>
+              <Typography variant="h5">Summary: {summary.summary}</Typography>
+
+            </Grid>
+            {/* Table */}
+            <Grid item xs={12} md={8} lg={8} xl={5}>
+              <MainCard content={false}>
+                <UserScoreTable userScoreList={userScoreList} />
+              </MainCard>
+            </Grid>
           </Grid>
         </Grid>
       }
