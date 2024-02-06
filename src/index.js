@@ -24,7 +24,7 @@ const root = createRoot(container); // createRoot(container!) if you use TypeScr
 root.render(
   <StrictMode>
     <ReduxProvider store={store}>
-      <BrowserRouter basename="/free">
+      <BrowserRouter basename="/radar">
         <SnackbarProvider anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
           <App />
         </SnackbarProvider>
