@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+// import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
 import { 
   Box, 
-  Link, 
+  // Link, 
   Stack, 
   Table, 
   TableBody, 
@@ -235,9 +235,10 @@ export default function ExerciseTable({exerciseList, displayActionBtns, viewRow,
                   selected={isItemSelected}
                 >
                   <TableCell component="th" id={labelId} scope="row" align="right">
-                    <Link color="secondary" component={RouterLink} to="/color">
+                    {/* <Link color="secondary" component={RouterLink} to="/color">
                       {row.sn}
-                    </Link>
+                    </Link> */}
+                    {row.sn}
                   </TableCell>
                   <TableCell align="left">{row.org}</TableCell>
                   <TableCell align="right">{formatDatetime(row.start_time)}</TableCell>
