@@ -12,7 +12,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 // project import
 import ExerciseTable from 'pages/security-exercise/ExerciseTable';
-import UserScoreTable from './UserScoreTable';
+// import UserScoreTable from './UserScoreTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
 import { loadExercises, abortExercise, deleteExercise, loadUserScore } from 'pages/security-exercise/route';
@@ -22,6 +22,7 @@ import { formatDatetime } from 'utils/dateFormatter';
 // assets
 import { PlusOutlined } from '@ant-design/icons';
 import { useSnackbar } from 'notistack';
+import ScoreTable from './ScoreTable';
 
 
 // ==============================|| Functions ||============================== //
@@ -184,7 +185,8 @@ const SecurityExercise = () => {
             {/* Table */}
             <Grid item xs={12} md={8} lg={8} xl={5}>
               <MainCard content={false}>
-                <UserScoreTable userScoreList={userScoreList} />
+                {/* <UserScoreTable userScoreList={userScoreList} /> */}
+                <ScoreTable rows={userScoreList}/>
               </MainCard>
             </Grid>
           </Grid>
