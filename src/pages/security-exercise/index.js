@@ -11,7 +11,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 
 // project import
-import ExerciseTable from 'pages/security-exercise/ExerciseTable';
+// import ExerciseTableOld from 'pages/security-exercise/ExerciseTableOld';
+import ExerciseTable from './ExerciseTable';
 // import UserScoreTable from './UserScoreTable';
 import AddExerForm from './AddExerForm';
 import MainCard from 'components/MainCard';
@@ -151,18 +152,21 @@ const SecurityExercise = () => {
         </Grid>
       </Grid>
 
-      {/* Tables */}
-      <Grid item xs={12} md={12} lg={12} xl={7}>
+      {/* Exercise Tables */}
+      <Grid item xs={12} md={12} lg={12} xl={7.5}>
         <MainCard content={false}>
-          <ExerciseTable exerciseList={exerciseList} displayActionBtns viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort} />
+          {/* <ExerciseTableOld exerciseList={exerciseList} displayActionBtns viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort} /> */}
+          <ExerciseTable rows={exerciseList} viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort}/>
         </MainCard>
       </Grid>
+
+
 
       {/* User score */}
       {showUserScore &&
 
         <Grid item xs={12}>
-          <Grid container rowSpacing={2.5}>
+          <Grid container rowSpacing={2}>
             {/* Title */}
             <Grid item xs={12} md={8} lg={8} xl={5}>
               <Grid container alignItems="left" justifyContent="space-between">

@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 // project import
-import ExerciseTable from '../security-exercise/ExerciseTable';
+import ExerciseTable from '../security-exercise/ExerciseTableOld';
 import OrdersTable from './OrdersTable';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';

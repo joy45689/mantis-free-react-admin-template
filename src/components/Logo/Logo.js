@@ -9,7 +9,7 @@
  *
  */
 
-import logo from 'assets/images/delta-logo-2.png';
+import logo from 'assets/images/delta-logo.png';
 
 // ==============================|| LOGO SVG ||============================== //
 
