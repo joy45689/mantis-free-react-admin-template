@@ -24,6 +24,11 @@ import addExercise from './route';
 
 // ============================|| FIREBASE - ADD SECURITY EXERCISE ||============================ //
 
+Date.prototype.addDays = function(days){
+  this.setDate(this.getDate() + days);
+  return this;
+}
+
 
 const formatDate = (date) => {
   let day = date.getDate();
@@ -49,13 +54,13 @@ const AddExerForm = ({ setDispaly }) => {
         initialValues={{
           organization: '',
           start: formatDate(new Date()),
-          end: formatDate(new Date()),
+          end: formatDate(new Date().addDays(1)),
           submit: null
         }}
         validationSchema={Yup.object().shape({
           organization: Yup.string().max(255).required('Organization is required'),
           start: Yup.string().max(255).required('Start is required'),
-          end: Yup.string().max(255).required('End is required')
+          end: Yup.date().min(new Date(), 'End must be later than now').required('End is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
