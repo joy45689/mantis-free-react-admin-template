@@ -29,7 +29,7 @@ const ExerciseStatus = ({ status }) => {
       title = 'Ongoing';
       break;
     case 2:
-      color = 'info';
+      color = 'secondary';
       title = 'End';
       break;
     case 3:

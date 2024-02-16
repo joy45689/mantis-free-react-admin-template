@@ -153,18 +153,15 @@ const SecurityExercise = () => {
       </Grid>
 
       {/* Exercise Tables */}
-      <Grid item xs={12} md={12} lg={12} xl={7.5}>
+      <Grid item xs={12} md={12} lg={12} xl={8}>
         <MainCard content={false}>
           {/* <ExerciseTableOld exerciseList={exerciseList} displayActionBtns viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort} /> */}
           <ExerciseTable rows={exerciseList} viewRow={handleView} deleteRow={handleDelete} abortRow={handleAbort}/>
         </MainCard>
       </Grid>
 
-
-
       {/* User score */}
       {showUserScore &&
-
         <Grid item xs={12}>
           <Grid container rowSpacing={2}>
             {/* Title */}
@@ -196,8 +193,6 @@ const SecurityExercise = () => {
           </Grid>
         </Grid>
       }
-
-
 
     </Grid>
   );
