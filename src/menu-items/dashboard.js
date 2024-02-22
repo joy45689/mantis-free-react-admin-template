@@ -18,7 +18,7 @@ const dashboard = {
       id: 'dashboard',
       title: 'Dashboard',
       type: 'item',
-      url: '/dashboard/default',
+      url: 'radar/dashboard/default',
       icon: icons.DashboardOutlined,
       breadcrumbs: false
     },
@@ -26,7 +26,7 @@ const dashboard = {
       id: 'security-exercise',
       title: 'Security Exercise',
       type: 'item',
-      url: '/security-exercise',
+      url: 'radar/security-exercise',
       icon: icons.SecurityScanOutlined,
       breadcrumbs: false
     }

@@ -33,11 +33,11 @@ const MainRoutes = {
       element: <Color />
     },
     {
-      path: 'security-exercise',
+      path: 'radar/security-exercise',
       element: <SecurityExercise />
     },
     {
-      path: 'dashboard',
+      path: 'radar/dashboard',
       children: [
         {
           path: 'default',
