@@ -23,10 +23,10 @@ const dashboard = {
       breadcrumbs: false
     },
     {
-      id: 'security-exercise',
-      title: 'Security Exercise',
+      id: 'ransomware-exercise',
+      title: 'Ransomware Exercise',
       type: 'item',
-      url: 'radar/security-exercise',
+      url: 'radar/ransomware-exercise',
       icon: icons.SecurityScanOutlined,
       breadcrumbs: false
     }

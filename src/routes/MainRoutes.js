@@ -33,7 +33,7 @@ const MainRoutes = {
       element: <Color />
     },
     {
-      path: 'radar/security-exercise',
+      path: 'radar/ransomware-exercise',
       element: <SecurityExercise />
     },
     {

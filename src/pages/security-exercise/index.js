@@ -84,7 +84,7 @@ const SecurityExercise = () => {
 
   const handleDelete = async (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
-    const status = await getConfirmation('Warning!','Do you want to delete this security exercise?');
+    const status = await getConfirmation('Warning!','Do you want to delete this exercise?');
     
     if (status) {
       if(await deleteExercise(targetSN)){
@@ -98,7 +98,7 @@ const SecurityExercise = () => {
 
   const handleAbort = async (targetSN, title) => {
     console.log(targetSN + " " + title + " clicked");
-    const status = await getConfirmation('Warning!','Do you want to abort this security exercise?');
+    const status = await getConfirmation('Warning!','Do you want to abort this exercise?');
     
     if (status) {
       if(await abortExercise(targetSN)){
@@ -131,7 +131,7 @@ const SecurityExercise = () => {
       {/* Title */}
       <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Typography variant="h4">Secury Exercises</Typography>
+          <Typography variant="h4">Ransomware Exercises</Typography>
         </Grid>
       </Grid>
 
