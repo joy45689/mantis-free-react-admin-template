@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // material-ui
 import {
@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 
 // project import
-import ExerciseTable from '../security-exercise/ExerciseTableOld';
+// import ExerciseTable from '../security-exercise/ExerciseTableOld';
 import OrdersTable from './OrdersTable';
 import IncomeAreaChart from './IncomeAreaChart';
 import MonthlyBarChart from './MonthlyBarChart';
@@ -27,7 +27,7 @@ import ReportAreaChart from './ReportAreaChart';
 import SalesColumnChart from './SalesColumnChart';
 import MainCard from 'components/MainCard';
 import AnalyticEcommerce from 'components/cards/statistics/AnalyticEcommerce';
-import { loadExercises } from 'pages/security-exercise/route';
+// import { loadExercises } from 'pages/security-exercise/route';
 
 // assets
 import { GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
@@ -74,15 +74,15 @@ const status = [
 const DashboardDefault = () => {
   const [value, setValue] = useState('today');
   const [slot, setSlot] = useState('week');
-  const [exerciseList, setExerciseList] = useState([]);
-  useEffect(() => {
-    loadExercises(setExerciseList);
-  }, []);
+  // const [exerciseList, setExerciseList] = useState([]);
+  // useEffect(() => {
+  //   loadExercises(setExerciseList);
+  // }, []);
 
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 0 */}
-      <Grid item xs={12} md={7} lg={8}>
+      {/* <Grid item xs={12} md={7} lg={8}>
         <Grid container alignItems="center" justifyContent="space-between">
           <Grid item>
             <Typography variant="h5">Recent Secury Exercises</Typography>
@@ -92,7 +92,7 @@ const DashboardDefault = () => {
         <MainCard sx={{ mt: 2 }} content={false}>
           <ExerciseTable exerciseList={exerciseList}/>
         </MainCard>
-      </Grid>
+      </Grid> */}
 
 
 
